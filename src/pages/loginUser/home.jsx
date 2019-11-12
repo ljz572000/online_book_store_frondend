@@ -22,35 +22,7 @@ class Home extends Component {
         ShoppingCartVisiable: false,
         shoppingMessageVisiable: false
     }
-    // getCol = (books) => {
-    //     return books.map((item, index) =>
-    //         (
-    //             <div key={(item, index)}>
-    //                 <Col span={4} style={{ paddingBottom: 20 }}>
-    //                     <Card
-    //                         hoverable
-    //                         style={{ width: 220 }}
-    //                         cover={
-    //                             <img
-    //                                 style={{ height: 310 }}
-    //                                 alt="pic"
-    //                                 src={item.bookPic}
-    //                             />
-    //                         }
-    //                         actions={[
-    //                             <Icon type="check" key="check" onClick={() => this.showBuyNow(item)} />,
-    //                             <Icon type="shopping-cart" key="shopping-cart" onClick={() => this.showAddShoppingCart(item)} />
-
-    //                         ]}
-    //                         title={item.bookName}
-    //                     >
-    //                         <Meta title={'作者：' + item.author} description={'定价：' + item.bookPrice + ' 元'} />
-    //                     </Card>
-    //                 </Col>
-    //             </div>
-    //         )
-    //     )
-    // }
+    
     //发起异步ajax请求
     componentDidMount() {
         this.getBooks(this.state.pagecount, 18);
@@ -67,18 +39,6 @@ class Home extends Component {
     onChange = page => {
         this.getBooks(page, 18);
     }
-    // showBuyNow = (item) => {
-    //     const buynowVisiable = true;
-    //     const seletedItem = item;
-    //     this.setState({ buynowVisiable })
-    //     this.setState({ seletedItem })
-    // }
-    // showAddShoppingCart = (item) => {
-    //     const buynowVisiable = true;
-    //     const seletedItem = item;
-    //     this.setState({ buynowVisiable })
-    //     this.setState({ seletedItem })
-    // }
 
     buynowSubmit = e => {
         e.preventDefault();
@@ -119,14 +79,18 @@ class Home extends Component {
 
     shoopingCartOk = async (e) => {
         if (e) {
-        const user = memoryUtils.user;
-        const current = this.state.message;
-        const responsebuytextbook = await reqAddShoppingCart(current.bookNo,current.book_num,current.totalValues,user.userNo);
-        message.success(responsebuytextbook);
+            const user = memoryUtils.user;
+            const current = this.state.message;
+            const responsebuytextbook = await reqAddShoppingCart(current.bookNo,current.book_num,current.totalValues,user.userNo);
+            
+            if(responsebuytextbook==='success'){
+                this.props.history.go(0);
+            }else{
+                message.success('fail');
+            }
         }else{
             message.error('fail');
         }
-        // console.log(current);
     }
 
     BookListBuyNowVisiable(buynowVisiable, seletedItem) {
@@ -373,7 +337,7 @@ class ShoppingCartDrawer extends Component {
                             )}
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit"> 立即购买 </Button>
+                        <Button type="primary" htmlType="submit"> 添加 </Button>
                     </Form.Item>
                 </Form>
             </Drawer>

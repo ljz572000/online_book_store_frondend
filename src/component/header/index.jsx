@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 import { Menu } from 'antd';
 import './header.less';
 class UserHeader extends Component {
     render() {
+        const locate = this.props.location.pathname + '';
         return (
             <div>
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={['/user_home']}
+                    defaultSelectedKeys={[locate === '/'? '/user_home': locate]}
                     style={{ lineHeight: '64px' }}
                     className="menu"
                 >
@@ -25,9 +26,9 @@ class UserHeader extends Component {
               </Link>
 
                     </Menu.Item>
-                    <Menu.Item className="menu-item" key="/user_me">
-                        <Link to='/user_me'>
-                            我
+                    <Menu.Item className="menu-item" key="/user_order">
+                        <Link to='/user_order'>
+                            订单
               </Link>
                     </Menu.Item>
                 </Menu>
@@ -36,4 +37,4 @@ class UserHeader extends Component {
     }
 }
 
-export default UserHeader;
+export default withRouter(UserHeader);

@@ -7,7 +7,7 @@ import UserHeader from '../../component/header';
 import { Redirect,Route,Switch } from 'react-router-dom';
 import ShoppingCart from './shopping_cart';
 import Home from './home';
-import Me from './me';
+import Order from './order';
 const { Header, Footer,Content } = Layout;
 class User extends Component {
   state = {
@@ -32,7 +32,7 @@ class User extends Component {
                     <Switch>
                             <Route path='/user_home' component={Home} />
                             <Route path='/user_shopping' component={ShoppingCart} />
-                            <Route path='/user_me' component={Me} />
+                            <Route path='/user_order' component={Order} />
                             <Redirect to={'/user_home'}></Redirect>
                         </Switch>
                     </Content>
