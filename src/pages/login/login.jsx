@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import '../common.less';
-import { Row, Col, Form, Icon, Input, Button, Checkbox,message } from 'antd';
-import {reqLogin} from '../../api';
+import { Row, Col, Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { reqLogin } from '../../api';
 import bcrypt from 'bcryptjs';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
-import {withRouter} from "react-router-dom";
-import {Redirect} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 class Login extends Component {
-  
   render() {
     return (
       <div className="common">
@@ -18,14 +16,14 @@ class Login extends Component {
               <div className='common-label'>网上书店</div>
               <div style={{ backgroundColor: 'white', marginTop: '30px' }}>
                 <div className="form-label">欢迎使用本系统</div>
-                <LoginForm/>
+                <LoginForm />
               </div>
             </Col>
           </Row>
         </div>
         <div className="common-footer">
-        <a style={{color: 'white'}} href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
-          </div>
+          <a style={{ color: 'white' }} href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
+        </div>
       </div>
     );
   }
@@ -36,27 +34,55 @@ class NormalForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        const {userId, password,remember} = values;
-        const response =  await reqLogin(userId);
-        if(bcrypt.compareSync(password, response.userPassword)){
+        const { userId, password, remember } = values;
+        const response = await reqLogin(userId);
+        if (bcrypt.compareSync(password, response.userPassword)) {
           message.success("登录成功");
           memoryUtils.user = response;
-          if(remember){
+          if (remember) {
+            storageUtils.removeUser();
             storageUtils.saveUser(response);//保存本地
           }
           //跳转到管理员界面 
-          if(response.isAdmin){
-              this.props.history.replace('/admin');
+          if (response.isAdmin) {
+            this.props.history.replace('/admin');
+          } else {
+            // 跳转到普通用户界面
+            this.props.history.replace('/user');
           }
-          // 跳转到普通用户界面
-          this.props.history.replace('/user');
-      }else{
+        } else {
           message.error("登录失败：账号或密码错误");
-      }
+        }
       }
     });
   };
 
+  localLogin = async (user) => {
+    const response = await reqLogin(user.userId);
+    if (user.userPassword === response.userPassword) {
+      memoryUtils.user = response;
+      storageUtils.saveUser(response);//保存本地
+      //跳转到管理员界面 
+      if (response.isAdmin) {
+        this.props.history.replace('/admin');
+      } else {
+        // 跳转到普通用户界面
+        this.props.history.replace('/user');
+      }
+    } else {
+      this.props.history.go(0);
+    }
+  }
+
+  /*
+ 执行异步任务: 发异步ajax请求
+  */
+  componentDidMount() {
+    const user = storageUtils.getUser();
+    if (JSON.stringify(user) === "{}") { } else {
+      this.localLogin(user);
+    }
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -97,10 +123,10 @@ class NormalForm extends React.Component {
           })(<Checkbox>记住我</Checkbox>)}
           <a className="common-form-forgot" href="/forgotpwd">
             忘记密码
-          </a>
+              </a>
           <Button type="primary" htmlType="submit" className="common-form-button">
             登录
-          </Button>
+              </Button>
           Or <a href="/register">现在注册!</a>
         </Form.Item>
       </Form>

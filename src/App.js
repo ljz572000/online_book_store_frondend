@@ -17,11 +17,12 @@ class App extends Component{
          <Route path='/user' component={User}></Route>
          <Route path='/forgotpwd' component={ForgotPwd}></Route>
          <Route path='/register' component={Register}></Route>
-         <Route path='/*' component={Login}></Route>
+         <Route path='/*' component={User}></Route>
          </Switch>
          </BrowserRouter>
     );
 }
 }
+
 /**应用的根组件 */
 export default App;
