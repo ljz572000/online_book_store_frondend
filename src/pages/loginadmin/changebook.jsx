@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Col, Row, Spin, Form, Input,Button,InputNumber,message } from 'antd';
+import { Layout, Col, Row, Form, Input,Button,InputNumber,message } from 'antd';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 import memoryUtils from '../../utils/memoryUtils';
@@ -7,27 +7,14 @@ import { Redirect } from 'react-router-dom';
 import { reqChangeTextBook} from '../../api';
 const { Content } = Layout;
 class Changebook extends Component {
-    state = {
-        loading: false
-    }
     render() {
-        const { loading } = this.state;
         const book = memoryUtils.book;
-        if (loading) {
-            return (
-                <Content style={{ background: '#ECECEC', padding: '30px' }}>
-                    <Row type="flex" justify="center">
-                        <Col span={4} >
-                            <Spin />
-                        </Col>
-                    </Row>
-                </Content>
-            )
-        } else {
+     
             if (JSON.stringify(book) === "{}") {
                 return <Redirect to='/admin' />
             }
-            return (<div>
+            return (
+            <div>
                 <Content>
                     <Breadcrumb style={{ marginLeft: '50px' }}>
                         <Breadcrumb.Item>
@@ -62,9 +49,8 @@ class Changebook extends Component {
 
                     </div>
                 </Content>
-
-            </div>);
-        }
+            </div>
+            );
     }
 }
 

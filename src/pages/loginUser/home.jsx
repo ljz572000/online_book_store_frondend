@@ -5,7 +5,8 @@ import { message } from 'antd';
 import { Pagination } from 'antd';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
-import { reqbuytextbook, reqUpdateTextBookNum, reqUpdateUserMoney, reqLogin,reqAddShoppingCart } from '../../api';
+import { withRouter } from 'react-router-dom';
+import { reqbuytextbook, reqUpdateTextBookNum, reqUpdateUserMoney, reqLogin, reqAddShoppingCart } from '../../api';
 const { Meta } = Card;
 const { Content } = Layout;
 
@@ -22,7 +23,7 @@ class Home extends Component {
         ShoppingCartVisiable: false,
         shoppingMessageVisiable: false
     }
-    
+
     //发起异步ajax请求
     componentDidMount() {
         this.getBooks(this.state.pagecount, 18);
@@ -53,46 +54,45 @@ class Home extends Component {
 
     buynowOk = async (e) => {
         if (e) {
-        const user = memoryUtils.user;
-        const current = this.state.message;
-        if (user.money <= 0 || user.money < current.totalValues) {
-            message.error('当前余额不足');
-        } else {
-            const responsebuytextbook = await reqbuytextbook(current.bookNo, current.book_num, current.totalValues, user.userNo);
-            const responseUpdateTextBookNum = await reqUpdateTextBookNum(current.book_num, current.bookNo);
-            const responseUpdateUserMoney = await reqUpdateUserMoney(user.userNo, user.money - current.totalValues);
-            if (responsebuytextbook === 'success' && responseUpdateTextBookNum === 'success' && responseUpdateUserMoney === 'success') {
-                message.success('success');
-                const response = await reqLogin(user.userId);
-                memoryUtils.user = response;
-                storageUtils.removeUser();
-                storageUtils.saveUser(response);//保存本地
-                this.props.history.go(0);
+            const user = memoryUtils.user;
+            const current = this.state.message;
+            if (user.money <= 0 || user.money < current.totalValues) {
+                message.error('当前余额不足');
             } else {
-                message.error('fail');
-                this.props.history.go(0);
+                const responsebuytextbook = await reqbuytextbook(current.bookNo, current.book_num, current.totalValues, user.userNo);
+                const responseUpdateTextBookNum = await reqUpdateTextBookNum(current.book_num, current.bookNo);
+                const responseUpdateUserMoney = await reqUpdateUserMoney(user.userNo, user.money - current.totalValues);
+                if (responsebuytextbook === 'success' && responseUpdateTextBookNum === 'success' && responseUpdateUserMoney === 'success') {
+                    message.success('success');
+                    const response = await reqLogin(user.userId);
+                    memoryUtils.user = response;
+                    storageUtils.removeUser();
+                    storageUtils.saveUser(response);//保存本地
+                    this.props.history.go(0);
+                } else {
+                    message.error('fail');
+                    this.props.history.go(0);
+                }
             }
-        }}else{
+        } else {
             message.error('fail');
         }
     };
-
     shoopingCartOk = async (e) => {
         if (e) {
             const user = memoryUtils.user;
             const current = this.state.message;
-            const responsebuytextbook = await reqAddShoppingCart(current.bookNo,current.book_num,current.totalValues,user.userNo);
-            
-            if(responsebuytextbook==='success'){
+            const responsebuytextbook = await reqAddShoppingCart(current.bookNo, current.book_num, current.totalValues, user.userNo);
+
+            if (responsebuytextbook === 'success') {
                 this.props.history.go(0);
-            }else{
+            } else {
                 message.success('fail');
             }
-        }else{
+        } else {
             message.error('fail');
         }
     }
-
     BookListBuyNowVisiable(buynowVisiable, seletedItem) {
         this.setState({ buynowVisiable, seletedItem });
     }
@@ -111,7 +111,7 @@ class Home extends Component {
     setMessageVisiable(messageVisiable) {
         this.setState({ messageVisiable });
     }
-    setShoppingMessage(shoppingMessageVisiable){
+    setShoppingMessage(shoppingMessageVisiable) {
         this.setState({ shoppingMessageVisiable });
     }
     AddShoppingCartDrawer(ShoppingCartVisiable) {
@@ -129,10 +129,10 @@ class Home extends Component {
         })
     }
 
-   
+
 
     render() {
-        const { books, totalPages, pagecount, loading, buynowVisiable, messageVisiable, message, ShoppingCartVisiable,shoppingMessageVisiable } = this.state;
+        const { books, totalPages, pagecount, loading, buynowVisiable, messageVisiable, message, ShoppingCartVisiable, shoppingMessageVisiable } = this.state;
         const { getFieldDecorator } = this.props.form;
         if (!loading) {
             return (
@@ -148,8 +148,7 @@ class Home extends Component {
             return (
                 <Content style={{ background: '#ECECEC', padding: '30px' }}>
                     <Row gutter={4}>
-                        <BookList books={books} bindsetVisiable={this.BookListBuyNowVisiable.bind(this)} bindShoppingCartVisiable={this.BookListShoppingCartVisiable.bind(this)} />
-                        {/* {this.getCol(books)} */}
+                        <RouteBookList books={books} bindsetVisiable={this.BookListBuyNowVisiable.bind(this)} bindShoppingCartVisiable={this.BookListShoppingCartVisiable.bind(this)} />
                     </Row>
                     <Row type="flex" justify="center">
                         <Col span={8} >
@@ -190,10 +189,14 @@ class Home extends Component {
 }
 
 class BookList extends Component {
+    showitem(item){
+        memoryUtils.book = item;
+        this.props.history.push('/detail_book');
+    }
     getCol = (books) => {
         return books.map((item, index) =>
             (
-                <div key={(item, index)}>
+                <div key={(item, index)} onClick={()=>this.showitem(item)}>
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
@@ -369,8 +372,8 @@ class BuyNowSender extends Component {
     }
 }
 
-class ShoppingSender extends Component{
-    
+class ShoppingSender extends Component {
+
     handleCancel = e => {
         const messageVisiable = false;
         this.props.bindMessageVisiable(messageVisiable);
@@ -391,5 +394,6 @@ class ShoppingSender extends Component{
         );
     }
 }
+const RouteBookList = (withRouter(BookList));
 const WrapHome = Form.create()(Home)
 export default WrapHome;

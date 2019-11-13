@@ -3,6 +3,7 @@ import { Layout, Card, Icon, Col, Row, Spin, Drawer, Button, InputNumber, Form, 
 import { Pagination } from 'antd';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
+import { withRouter } from 'react-router-dom';
 import { reqbuytextbook, reqUpdateTextBookNum, reqUpdateUserMoney, reqLogin, reqShoppingCarts, reqdeleteShoppingCarts } from '../../api';
 const { Meta } = Card;
 const { Content } = Layout;
@@ -126,7 +127,7 @@ class ShoppingCart extends Component {
             return (
                 <Content style={{ background: '#ECECEC', padding: '30px' }}>
                     <Row gutter={4}>
-                        <BookList books={books} bindsetVisiable={this.BookListBuyNowVisiable.bind(this)} bindDelete={this.deleteShoppingVisiable.bind(this)} />
+                        <RouteBookList books={books} bindsetVisiable={this.BookListBuyNowVisiable.bind(this)} bindDelete={this.deleteShoppingVisiable.bind(this)} />
                         {/* {this.getCol(books)} */}
                     </Row>
                     <Row type="flex" justify="center">
@@ -161,10 +162,14 @@ class ShoppingCart extends Component {
 }
 
 class BookList extends Component {
+    showitem(item){
+        memoryUtils.book = item.book;
+        this.props.history.push('/detail_book');
+    }
     getCol = (books) => {
         return books.map((item, index) =>
             (
-                <div key={(item, index)}>
+                <div key={(item, index)} onClick={()=>this.showitem(item)}>
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
@@ -310,6 +315,6 @@ class DeleteSender extends Component {
         }
     }
 }
-
+const RouteBookList = (withRouter(BookList));
 const WrapShoppingCart = Form.create()(ShoppingCart)
 export default WrapShoppingCart;

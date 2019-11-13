@@ -7,13 +7,12 @@ class UserHeader extends Component {
     render() {
         const locate = this.props.location.pathname + '';
         const user = memoryUtils.user;
-        console.log(user.isAdmin);
         if(user.isAdmin){
             return (<div>
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={[locate === '/'? '/admin/home': locate]}
+                    defaultSelectedKeys={[locate]}
                     style={{ lineHeight: '64px' }}
                     className="menu"
                 >

@@ -22,7 +22,7 @@ class Login extends Component {
           </Row>
         </div>
         <div className="common-footer">
-          <a style={{ color: 'white' }} href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
+          <a style={{ color: 'white' }} target="_blank" rel="github"  href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
         </div>
       </div>
     );
@@ -64,11 +64,9 @@ class NormalForm extends React.Component {
       storageUtils.saveUser(response);//保存本地
       //跳转到管理员界面 
       if (response.isAdmin) {
-        // this.props.history.replace('/admin');
         return <Redirect to='/admin'/>
       } else {
         // 跳转到普通用户界面
-        // this.props.history.replace('/user');
         return <Redirect to='/user'/>
       }
     } else {

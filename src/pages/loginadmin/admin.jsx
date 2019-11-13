@@ -30,7 +30,9 @@ class Admin extends Component {
                 <Redirect to={'/admin/home'}></Redirect>
               </Switch>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>@2019 by 李金洲 李玮光 软件项目实践课程设计项目</Footer>
+            <Footer style={{ textAlign: 'center' }}>
+            <a  target="_blank" rel="github" href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
+            </Footer>
           </Layout>
         </div>
       );

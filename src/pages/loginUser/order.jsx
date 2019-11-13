@@ -3,6 +3,7 @@ import { Layout, Card, Icon, Col, Row, Spin, Form, Modal, message } from 'antd';
 import { Pagination } from 'antd';
 import memoryUtils from '../../utils/memoryUtils';
 import { reqOrders,reqdeleteOrders } from '../../api';
+import { withRouter } from 'react-router-dom';
 const { Meta } = Card;
 const { Content } = Layout;
 
@@ -71,7 +72,7 @@ class Order extends Component {
             return (
                 <Content style={{ background: '#ECECEC', padding: '30px' }}>
                     <Row gutter={4}>
-                        <BookList books={books} bindDelete={this.deleteOrder.bind(this)} />
+                        <RouteBookList books={books} bindDelete={this.deleteOrder.bind(this)} />
                     </Row>
                     <Row type="flex" justify="center">
                         <Col span={8} >
@@ -92,10 +93,14 @@ class Order extends Component {
 }
 
 class BookList extends Component {
+    showitem(item){
+        memoryUtils.book = item.textBook;
+        this.props.history.push('/detail_book');
+    }
     getCol = (books) => {
         return books.map((item, index) =>
             (
-                <div key={(item, index)}>
+                <div key={(item, index)} onClick={()=>this.showitem(item)}>
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
@@ -155,6 +160,6 @@ class DeleteSender extends Component {
         }
     }
 }
-
+const RouteBookList = (withRouter(BookList));
 const WrapOrder = Form.create()(Order)
 export default WrapOrder;
