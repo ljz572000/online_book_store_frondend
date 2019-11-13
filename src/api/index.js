@@ -25,3 +25,5 @@ export const reqMessage = (pagecount,size,user_no) => ajax('/Messages',{pagecoun
 export const reqAddShoppingCart = (book_no,book_num,book_values,user_no) => ajax('/addShoppingCart',{book_no,book_num,book_values,user_no},'GET');
 export const reqShoppingCarts = (pagecount, size,user_no) => ajax('/ShoppingCarts', { pagecount, size,user_no}, 'GET');
 export const reqdeleteShoppingCarts = (shopping_cart_no) => ajax('/deleteShoppingCarts', { shopping_cart_no}, 'GET');
+export const reqOrders = (pagecount, size,user_no) => ajax('/Orders', { pagecount, size,user_no}, 'GET');
+export const reqdeleteOrders = (order_no) => ajax('/deleteOrder', { order_no}, 'GET');
