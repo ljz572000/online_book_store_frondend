@@ -16,30 +16,34 @@ class User extends Component {
   render() {
     let user = memoryUtils.user;
     if (JSON.stringify(user)==="{}") {
-      this.props.history.replace('/login');
-      return (<div></div>);
+      return <Redirect to='/login'/>
     }
     else {
-      return (
-        <div className="user">
-          <UserLable user={user} />
-          <Layout className="layout">
-                    <div className="logo">网上书店</div>
-                     <Header className="header">
-                     <UserHeader/>
-                    </Header>
-                    <Content>
-                    <Switch>
-                            <Route path='/user_home' component={Home} />
-                            <Route path='/user_shopping' component={ShoppingCart} />
-                            <Route path='/user_order' component={Order} />
-                            <Redirect to={'/user_home'}></Redirect>
-                        </Switch>
-                    </Content>
-                    <Footer style={{textAlign: 'center'}}>@2019 by 李金洲 李玮光 软件项目实践课程设计项目</Footer>
-                </Layout>
-        </div>
-      );
+      if(user.isAdmin){
+        return <Redirect to='/admin'/>;
+      }else{
+        return (
+          <div className="user">
+            <UserLable user={user} />
+            <Layout className="layout">
+                      <div className="logo">网上书店</div>
+                       <Header className="header">
+                       <UserHeader/>
+                      </Header>
+                      <Content>
+                      <Switch>
+                              <Route path='/user_home' component={Home} />
+                              <Route path='/user_shopping' component={ShoppingCart} />
+                              <Route path='/user_order' component={Order} />
+                              <Redirect to={'/user_home'}></Redirect>
+                          </Switch>
+                      </Content>
+                      <Footer style={{textAlign: 'center'}}>  @2019 by 李金洲 李玮光 软件项目实践课程设计项目</Footer>
+                  </Layout>
+          </div>
+        );
+      }
+    
     }
   }
 }

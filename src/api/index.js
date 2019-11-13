@@ -27,3 +27,6 @@ export const reqShoppingCarts = (pagecount, size,user_no) => ajax('/ShoppingCart
 export const reqdeleteShoppingCarts = (shopping_cart_no) => ajax('/deleteShoppingCarts', { shopping_cart_no}, 'GET');
 export const reqOrders = (pagecount, size,user_no) => ajax('/Orders', { pagecount, size,user_no}, 'GET');
 export const reqdeleteOrders = (order_no) => ajax('/deleteOrder', { order_no}, 'GET');
+export const reqrepairPwd = (user_no,user_pwd) => ajax('/repairPwd',{user_no,user_pwd},'POST');
+export const reqchangeData = (userNo,address,major,mail,birth) => ajax('/changeData',{userNo,address,major,mail,birth},'POST');
+export const reqChangeTextBook = (changNum,price,bookNo) => ajax('/ChangeTextBook',{changNum,price,bookNo},'post');

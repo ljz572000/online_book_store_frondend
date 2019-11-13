@@ -6,7 +6,8 @@ import Admin from './pages/loginadmin/admin';
 import User from './pages/loginUser/user';
 import ForgotPwd from './pages/forgotAndRegister/forgotpwd';
 import Register from './pages/forgotAndRegister/register';
-
+import Repair from './pages/forgotAndRegister/repair';
+import RepairPwd from './pages/forgotAndRegister/repairpwd';
 class App extends Component{
   render(){
     return(
@@ -17,6 +18,8 @@ class App extends Component{
          <Route path='/user' component={User}></Route>
          <Route path='/forgotpwd' component={ForgotPwd}></Route>
          <Route path='/register' component={Register}></Route>
+         <Route path='/repair' component={Repair}></Route>
+         <Route path='/repairpwd' component={RepairPwd}></Route>
          <Route path='/*' component={User}></Route>
          </Switch>
          </BrowserRouter>

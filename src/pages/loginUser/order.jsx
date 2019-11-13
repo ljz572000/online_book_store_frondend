@@ -19,7 +19,6 @@ class Order extends Component {
     componentDidMount() {
         this.getBooks(this.state.pagecount, 18);
     }
-
     getBooks = async (pageCount, size) => {
         const user = memoryUtils.user;
         //发起异步ajax请求，获取数据
@@ -58,7 +57,6 @@ class Order extends Component {
 
     render() {
         const { books, totalPages, pagecount, loading, deleteVisiable,deleteMessage } = this.state;
-        const { getFieldDecorator } = this.props.form;
         if (!loading) {
             return (
                 <Content style={{ background: '#ECECEC', padding: '30px', width: '100%', height: '100%' }}>

@@ -5,7 +5,7 @@ import { reqLogin } from '../../api';
 import bcrypt from 'bcryptjs';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
-import { withRouter } from "react-router-dom";
+import { withRouter,Redirect } from "react-router-dom";
 class Login extends Component {
   render() {
     return (
@@ -64,10 +64,12 @@ class NormalForm extends React.Component {
       storageUtils.saveUser(response);//保存本地
       //跳转到管理员界面 
       if (response.isAdmin) {
-        this.props.history.replace('/admin');
+        // this.props.history.replace('/admin');
+        return <Redirect to='/admin'/>
       } else {
         // 跳转到普通用户界面
-        this.props.history.replace('/user');
+        // this.props.history.replace('/user');
+        return <Redirect to='/user'/>
       }
     } else {
       this.props.history.go(0);

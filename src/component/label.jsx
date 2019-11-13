@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import './label.less';
 class UserLable extends Component {
     logout = ()=>{
-        console.log(123);
         storageUtils.removeUser();
         this.props.history.replace('/login');
     }
@@ -18,7 +17,8 @@ class UserLable extends Component {
             <div> 邮箱: {this.props.user.mail}</div>
             <div> 生日: {this.props.user.birth}</div>
             <a onClick={this.logout} style={{ color: 'red' }}>退出</a>
-            <a href="/login" style={{ color: 'blue' }}>修改个人资料</a>
+            <a href="/repair" style={{ color: 'blue' }}>修改个人资料</a>
+            <a href = "/repairpwd" style={{color: 'green'}}>修改密码</a>
           </Menu.Item>
         </Menu>
       );
