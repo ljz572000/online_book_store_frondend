@@ -101,7 +101,7 @@ class ChangebookForm extends Component{
                     )}
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit"> 立即购买 </Button>
+                <Button type="primary" htmlType="submit"> 提交 </Button>
             </Form.Item>
         </Form>);
     }

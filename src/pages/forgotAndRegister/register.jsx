@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Icon, Input, Button, DatePicker, message, Radio } from 'antd';
 import './register.less';
+import {  Link } from "react-router-dom";
 import moment from 'moment';
 import { reqinsertAUser } from '../../api';
 import bcrypt from 'bcryptjs';
@@ -184,7 +185,7 @@ class NormalForm extends React.Component {
           <Button type="primary" htmlType="submit" className="common-form-button">
             注册
           </Button>
-          Or <a href="/login">已有账号！去登录</a>
+          Or <Link to='/login'> 已有账号！去登录</Link>
         </Form.Item>
       </Form>
     );

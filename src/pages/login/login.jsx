@@ -5,7 +5,7 @@ import { reqLogin } from '../../api';
 import bcrypt from 'bcryptjs';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
-import { withRouter,Redirect } from "react-router-dom";
+import { withRouter, Redirect, Link } from "react-router-dom";
 class Login extends Component {
   render() {
     return (
@@ -22,7 +22,7 @@ class Login extends Component {
           </Row>
         </div>
         <div className="common-footer">
-          <a style={{ color: 'white' }} target="_blank" rel="github"  href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
+          <a style={{ color: 'white' }} target="_blank" rel="noopener noreferrer" href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
         </div>
       </div>
     );
@@ -64,10 +64,10 @@ class NormalForm extends React.Component {
       storageUtils.saveUser(response);//保存本地
       //跳转到管理员界面 
       if (response.isAdmin) {
-        return <Redirect to='/admin'/>
+        return <Redirect to='/admin' />
       } else {
         // 跳转到普通用户界面
-        return <Redirect to='/user'/>
+        return <Redirect to='/user' />
       }
     } else {
       this.props.history.go(0);
@@ -121,13 +121,12 @@ class NormalForm extends React.Component {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>记住我</Checkbox>)}
-          <a className="common-form-forgot" href="/forgotpwd">
-            忘记密码
-              </a>
+          <Link className="common-form-forgot" to='/forgotpwd'>  忘记密码</Link>
           <Button type="primary" htmlType="submit" className="common-form-button">
             登录
               </Button>
-          Or <a href="/register">现在注册!</a>
+          Or
+          <Link to='/register'>  现在注册!</Link>
         </Form.Item>
       </Form>
     );

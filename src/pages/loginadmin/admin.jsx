@@ -31,7 +31,7 @@ class Admin extends Component {
               </Switch>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-            <a  target="_blank" rel="github" href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
+            <a  target="_blank"  rel="noopener noreferrer" href="https://github.com/ljz572000/online_book_store_frondend"> @2019 by 李金洲 李玮光 软件项目实践课程设计项目</a>
             </Footer>
           </Layout>
         </div>

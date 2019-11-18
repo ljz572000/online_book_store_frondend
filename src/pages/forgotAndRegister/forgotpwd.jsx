@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Form, Icon, Input, Button,message } from 'antd';
 import { reqGoToResetPage } from '../../api';
+import {  Link } from "react-router-dom";
 import '../common.less';
 class ForgotPwd extends Component {
   render() {
@@ -64,7 +65,7 @@ class NormalForm extends React.Component {
           <Button type="primary" htmlType="submit" className="common-form-button">
             重置密码
           </Button>
-          Or <a href="/login">完成重置！去登录</a>
+          Or <Link to='/login'>  完成重置！去登录</Link>
         </Form.Item>
       </Form>
     );

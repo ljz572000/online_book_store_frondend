@@ -196,7 +196,7 @@ class BookList extends Component {
     getCol = (books) => {
         return books.map((item, index) =>
             (
-                <div key={(item, index)} onClick={()=>this.showitem(item)}>
+                <div key={(item, index)} >
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
@@ -206,6 +206,7 @@ class BookList extends Component {
                                     style={{ height: 310 }}
                                     alt="pic"
                                     src={item.bookPic}
+                                    onClick={()=>this.showitem(item)}
                                 />
                             }
                             actions={[
