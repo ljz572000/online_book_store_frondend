@@ -19,6 +19,7 @@ export const reqinsertAUser = (userId, isAdmin, userPassword, userIconPath, user
     address, mail, birth, isFemale
 }, 'POST');
 export const reqTextbooks = (pagecount, size) => ajax(Base+'/Textbooks', { pagecount, size }, 'GET');
+export const reqAllTextbooks = (pagecount, size) => ajax(Base+'/AllTextbooks', { pagecount, size }, 'GET');
 export const reqbuytextbook = (book_no,book_num,book_values,user_no) => ajax(Base+'/AddOrders',{ book_no , book_num , book_values ,user_no },'GET');
 export const reqUpdateTextBookNum = (buyNum,bookNo) => ajax(Base+'/UpdateTextBookNum',{buyNum,bookNo},'GET');
 export const reqUpdateUserMoney = (user_no,money) => ajax(Base+'/chargeMoney',{user_no,money},'POST');

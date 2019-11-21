@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Card, Col, Row, Spin,Form} from 'antd';
-import { reqTextbooks } from '../../api';
+import { reqAllTextbooks } from '../../api';
 import { Pagination } from 'antd';
 import { withRouter } from 'react-router-dom';
 import memoryUtils from '../../utils/memoryUtils';
@@ -22,7 +22,7 @@ class AdminHome extends Component {
 
     getBooks = async (pageCount, size) => {
         //发起异步ajax请求，获取数据
-        const result = await reqTextbooks(pageCount - 1, size);
+        const result = await reqAllTextbooks(pageCount - 1, size);
         const books = result.content;
         const totalPages = result.totalPages;
         const loading = true;
@@ -71,11 +71,12 @@ class BookList extends Component {
     getCol = (books) => {
         return books.map((item, index) =>
             (
-                <div key={(item, index)} onClick={()=>this.showitem(item)}>
+                <div key={(item, index)} onClick={()=>this.showitem(item)} >
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
-                            style={{ width: 220 }}
+                            style={item.totalnum===0 ? {backgroundColor: '#D3D3D3',width: 220}:{ width: 220}}
+
                             cover={
                                 <img
                                     style={{ height: 310 }}
@@ -83,7 +84,8 @@ class BookList extends Component {
                                     src={item.bookPic}
                                 />
                             }
-                            title={item.bookName}>
+                            title={item.totalnum===0 ? '该书下架了':item.bookName}
+                            >
                             <Meta title={'作者：' + item.author} description={'定价：' + item.bookPrice + ' 元'} />
                         </Card>
                     </Col>

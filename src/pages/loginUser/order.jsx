@@ -32,7 +32,6 @@ class Order extends Component {
     onChange = page => {
         this.getBooks(page, 12);
     }
-
     deleteOrder(deleteMessage) {
         this.setState(
             {
@@ -100,7 +99,7 @@ class BookList extends Component {
     getCol = (books) => {
         return books.map((item, index) =>
             (
-                <div key={(item, index)} onClick={()=>this.showitem(item)}>
+                <div key={(item, index)} onClick={()=>this.showitem(item)} >
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
@@ -135,7 +134,6 @@ class BookList extends Component {
     }
 }
 
-
 class DeleteSender extends Component {
     handleCancel = e => {
         const deleteVisiable = false;
@@ -160,6 +158,7 @@ class DeleteSender extends Component {
         }
     }
 }
+
 const RouteBookList = (withRouter(BookList));
 const WrapOrder = Form.create()(Order)
 export default WrapOrder;

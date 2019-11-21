@@ -173,7 +173,7 @@ class BookList extends Component {
                     <Col span={4} style={{ paddingBottom: 20 }}>
                         <Card
                             hoverable
-                            style={{ width: 220 }}
+                            style={item.book.totalnum===0 ? {backgroundColor: '#D3D3D3',width: 220}:{ width: 220}}
                             cover={
                                 <img
                                     style={{ height: 310 }}
@@ -182,7 +182,7 @@ class BookList extends Component {
                                     onClick={()=>this.showitem(item)}
                                 />
                             }
-                            actions={[
+                            actions={item.book.totalnum===0 ? [<Icon type="delete" key="delete" onClick={() => this.deleteShoppingCart(item)} />]:[
                                 <Icon type="check" key="check" onClick={() => this.showBuyNow(item)} />,
                                 <Icon type="delete" key="delete" onClick={() => this.deleteShoppingCart(item)} />,
                             ]}
