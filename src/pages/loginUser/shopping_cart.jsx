@@ -187,7 +187,7 @@ class BookList extends Component {
                                 <Icon type="delete" key="delete" onClick={() => this.deleteShoppingCart(item)} />,
                             ]}
                             title={item.book.bookName}>
-                            <Meta title={'作者：' + item.book.author} description={'定价：' + item.book.bookPrice + ' 元'} />
+                            <Meta title={'作者：' + item.book.author} description={item.book.totalnum===0 ? '该书已下架': '定价：' + item.book.bookPrice + ' 元'} />
                         </Card>
                     </Col>
                 </div>

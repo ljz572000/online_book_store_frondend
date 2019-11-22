@@ -32,3 +32,5 @@ export const reqdeleteOrders = (order_no) => ajax(Base+'/deleteOrder', { order_n
 export const reqrepairPwd = (user_no,user_pwd) => ajax(Base+'/repairPwd',{user_no,user_pwd},'POST');
 export const reqchangeData = (userNo,address,major,mail,birth) => ajax(Base+'/changeData',{userNo,address,major,mail,birth},'POST');
 export const reqChangeTextBook = (changNum,price,bookNo) => ajax(Base+'/ChangeTextBook',{changNum,price,bookNo},'post');
+export const reqchargeMoney = (user_no,money) => ajax(Base+'/chargeMoney',{user_no,money},'post');
+export const reqchangAvator = (userNo,avator) => ajax(Base+'/changAvator', { userNo,avator}, 'GET');

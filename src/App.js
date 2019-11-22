@@ -8,6 +8,7 @@ import ForgotPwd from './pages/forgotAndRegister/forgotpwd';
 import Register from './pages/forgotAndRegister/register';
 import Repair from './pages/forgotAndRegister/repair';
 import RepairPwd from './pages/forgotAndRegister/repairpwd';
+import Money from './pages/money';
 export default class App extends Component {
   render() {
     return (
@@ -20,6 +21,7 @@ export default class App extends Component {
           <Route path='/login' component={Login}></Route>
           <Route path='/admin' component={Admin}></Route>
           <Route path='/user' component={User}></Route>
+          <Route path='/money' component={Money}></Route>
           <Route path='/' component={User}></Route>
         </Switch>
       </HashRouter>

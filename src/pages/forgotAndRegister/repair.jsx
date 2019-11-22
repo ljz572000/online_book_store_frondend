@@ -4,11 +4,11 @@ import { reqLogin,reqchangeData } from '../../api';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 import '../common.less';
-import { withRouter } from "react-router-dom";
+import { withRouter,Link } from "react-router-dom";
 import moment from 'moment';
 class Repair extends Component {
     render() {
-        let user = memoryUtils.user;
+        const user = memoryUtils.user;
         if (JSON.stringify(user) === "{}") {
             this.props.history.replace('/login');
             return (<div></div>);
@@ -21,7 +21,7 @@ class Repair extends Component {
                                 <div className='common-label'>网上书店</div>
                                 <div style={{ backgroundColor: 'white', marginTop: '30px' }}>
                                     <div className="form-label">修改个人信息</div>
-                                    <RepairPwdForm />
+                                    <RepairPwdForm user={user} tohome={()=>{this.props.history.replace("/user");}}  />
                                 </div>
                             </Col>
                         </Row>
@@ -47,15 +47,11 @@ class NormalForm extends React.Component {
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 const { address, major, mail,brith } = values;
-                const user = memoryUtils.user;
-                const loginresponse = await reqLogin(user.userId);
-                const response = await reqchangeData(user.userNo,address,major,mail,brith.format('YYYY-MM-DD'));
+                const response = await reqchangeData(this.props.user.userNo,address,major,mail,brith.format('YYYY-MM-DD'));
                 message.success(response);
-                storageUtils.removeUser();
-                storageUtils.saveUser(loginresponse);//保存本地
-                memoryUtils.user = {};
-                memoryUtils.user = loginresponse;
-                this.props.history.replace('/user');
+                memoryUtils.user = await reqLogin(this.props.user.userId);
+                storageUtils.saveUser(memoryUtils.user);
+                this.props.tohome();
             }
         });
     };
@@ -124,6 +120,7 @@ class NormalForm extends React.Component {
                     <Button type="primary" htmlType="submit" className="common-form-button">
                         修改个人资料
             </Button>
+            Or <Link to='/user'>返回主界面</Link>
                 </Form.Item>
             </Form>
         );

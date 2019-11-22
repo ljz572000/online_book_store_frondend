@@ -18,7 +18,7 @@ class Detail extends Component{
             <Content>
                 <Breadcrumb style={{ marginLeft: '50px' }}>
                     <Breadcrumb.Item>
-                        <a onClick={()=>{ this.props.history.go(0);}}>首页</a>
+                        <a  onClick={()=>{ this.props.history.go(0);}}>首页</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         <Link to='/detail_book'>图书详情</Link>

@@ -5,10 +5,10 @@ import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 import bcrypt from 'bcryptjs';
 import '../common.less';
-import { withRouter } from "react-router-dom";
+import { withRouter,Link } from "react-router-dom";
 class RepairPwd extends Component {
     render() {
-        let user = memoryUtils.user;
+        const user = memoryUtils.user;
         if (JSON.stringify(user) === "{}") {
             this.props.history.replace('/login');
             return (<div></div>);
@@ -21,7 +21,7 @@ class RepairPwd extends Component {
                                 <div className='common-label'>网上书店</div>
                                 <div style={{ backgroundColor: 'white', marginTop: '30px' }}>
                                     <div className="form-label">修改密码</div>
-                                    <RepairPwdForm />
+                                    <RepairPwdForm user={user} tohome={()=>{this.props.history.replace("/user");}}  />
                                 </div>
                             </Col>
                         </Row>
@@ -43,18 +43,17 @@ class NormalForm extends React.Component {
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 const { oldpassword, newpassword, repassword } = values;
-                const user = memoryUtils.user;
                 switch (newpassword) {
                     case oldpassword: message.warning('新旧密码相同'); break;
                     case repassword:
-                        const loginresponse = await reqLogin(user.userId);
-                        if (bcrypt.compareSync(oldpassword, loginresponse.userPassword)) {
+                        memoryUtils.user = await reqLogin(this.props.user.userId);
+                        if (bcrypt.compareSync(oldpassword, memoryUtils.user.userPassword)) {
                             var salt = bcrypt.genSaltSync(10);
                             var hash = bcrypt.hashSync(newpassword, salt);
-                            const response = await reqrepairPwd(user.userNo, hash);
+                            const response = await reqrepairPwd(this.props.user.userNo, hash);
                             message.success(response);
-                            storageUtils.removeUser();
-                            this.props.history.replace('/login');
+                            storageUtils.saveUser(memoryUtils.user);
+                            this.props.tohome();
                         } else {
                             message.error('你输入旧密码错误');
                         }
@@ -119,6 +118,7 @@ class NormalForm extends React.Component {
                     <Button type="primary" htmlType="submit" className="common-form-button">
                         修改密码
             </Button>
+            Or <Link to='/user'>返回主界面</Link>
                 </Form.Item>
             </Form>
         );

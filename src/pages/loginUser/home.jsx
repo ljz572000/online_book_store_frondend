@@ -64,10 +64,8 @@ class Home extends Component {
                 const responseUpdateUserMoney = await reqUpdateUserMoney(user.userNo, user.money - current.totalValues);
                 if (responsebuytextbook === 'success' && responseUpdateTextBookNum === 'success' && responseUpdateUserMoney === 'success') {
                     message.success('success');
-                    const response = await reqLogin(user.userId);
-                    memoryUtils.user = response;
-                    storageUtils.removeUser();
-                    storageUtils.saveUser(response);//保存本地
+                    memoryUtils.user = await reqLogin(user.userId);
+                    storageUtils.saveUser(memoryUtils.user);//保存本地
                     this.props.history.go(0);
                 } else {
                     message.error('fail');
@@ -85,10 +83,14 @@ class Home extends Component {
             const responsebuytextbook = await reqAddShoppingCart(current.bookNo, current.book_num, current.totalValues, user.userNo);
 
             if (responsebuytextbook === 'success') {
+                message.success('success');
+                memoryUtils.user = await reqLogin(user.userId);
+                storageUtils.saveUser(memoryUtils.user);//保存本地
                 this.props.history.go(0);
             } else {
                 message.success('fail');
             }
+
         } else {
             message.error('fail');
         }

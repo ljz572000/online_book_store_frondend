@@ -12,7 +12,7 @@ import {message} from 'antd';
     return new Promise((resolve, reject)=>{
         let promise;
         if(type==='GET'){
-            promise = axios.get( url,{params: data});
+            promise = axios.get( url,{params: data}, {maxContentLength: 1024000},);
         }else{
             promise = axios.post(url, Qs.stringify(data));
         }
