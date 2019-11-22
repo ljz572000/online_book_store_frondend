@@ -12,12 +12,15 @@ class UserHeader extends Component {
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={[locate]}
+                    defaultSelectedKeys={[locate === '/' ? '/admin_home': locate]}
                     style={{ lineHeight: '64px' }}
                     className="menu"
                 >
                     <Menu.Item className="menu-item" key="/admin/home">
                         <Link to='/admin/home'>首页</Link>
+                    </Menu.Item>
+                    <Menu.Item className="menu-item" key="/admin/newbook">
+                        <Link to='/admin/newbook'>添加新书</Link>
                     </Menu.Item>
                 </Menu>
             </div>);

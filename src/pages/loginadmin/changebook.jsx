@@ -114,7 +114,7 @@ class ChangebookForm extends Component {
             <Form.Item label="修改价格">
                 {
                     getFieldDecorator('book_pirce', {
-                        rules: [{ required: true, message: '请输入订购数量!' },
+                        rules: [{ required: true, message: '请输入价格!' },
                         { pattern: /^[0-9,.]+$/, message: '数字包含小数点组成' }],
                         initialValue: this.props.book.bookPrice
                     })(

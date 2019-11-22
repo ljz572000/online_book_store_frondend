@@ -7,6 +7,7 @@ import UserHeader from '../../component/header';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AdminHome from './adminhome';
 import Changebook from './changebook';
+import NewBook from './newbook';
 const { Header, Footer, Content } = Layout;
 class Admin extends Component {
   render() {
@@ -27,6 +28,7 @@ class Admin extends Component {
               <Switch>
                 <Route path='/admin/home' component={AdminHome} />
                 <Route path='/admin/changebook' component={Changebook} />
+                <Route path='/admin/newbook' component={NewBook} />
                 <Redirect to={'/admin/home'}></Redirect>
               </Switch>
             </Content>

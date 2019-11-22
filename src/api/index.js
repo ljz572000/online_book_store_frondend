@@ -33,4 +33,4 @@ export const reqrepairPwd = (user_no,user_pwd) => ajax(Base+'/repairPwd',{user_n
 export const reqchangeData = (userNo,address,major,mail,birth) => ajax(Base+'/changeData',{userNo,address,major,mail,birth},'POST');
 export const reqChangeTextBook = (changNum,price,bookNo) => ajax(Base+'/ChangeTextBook',{changNum,price,bookNo},'post');
 export const reqchargeMoney = (user_no,money) => ajax(Base+'/chargeMoney',{user_no,money},'post');
-export const reqchangAvator = (userNo,avator) => ajax(Base+'/changAvator', { userNo,avator}, 'GET');
+export const reqinsertNewBook = (author,book_name, book_pic, book_price,brief, totalnum) => ajax(Base+'/insertNewBook', { author,book_name, book_pic, book_price,brief, totalnum}, 'GET');
